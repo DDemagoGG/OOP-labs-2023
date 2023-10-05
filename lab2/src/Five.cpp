@@ -1,17 +1,13 @@
 #include "Five.hpp"
 
-int isFive(const char& str){
-    return ((0 <= (str - '0')) and ((str - '0') < 5));
-}
-
 Five::Five() : size{0}, num{nullptr}{   
 }
 
-unsigned char* Five::getnumber() const{
+unsigned char* Five::getNumber() const{
     return  num;
 }
 
-int Five::getsize() const{
+int Five::getSize() const{
     return size;
 }
 
@@ -20,7 +16,7 @@ Five::Five(const std::string& num){
     size = num.size();
     size_t i = num.size() - 1;
     for (unsigned char c : num) {
-        if (!isFive(c)) throw std::logic_error("number must be quinary");
+        if ((0 > (c - '0')) or ((c - '0') >= 5)) throw std::logic_error("number must be quinary");
         this->num[i] = c;
         i--;
     }
@@ -31,7 +27,6 @@ void Five::print() const{
         for (int i = size - 1; i >= 0; i--){
             std::cout << num[i];
         }
-        std::cout << '\n';
     }
 }
 
@@ -40,9 +35,9 @@ Five::Five(const std::initializer_list<unsigned char> &l){
     size_t i = l.size() - 1;
     size = 0;
     for (unsigned char c : l){
-        // if (!isFive(num[i])){
-        //     throw std::logic_error("number must be quinary");
-        // }
+        if ((0 > (c - '0')) or ((c - '0') >= 5)){
+            throw std::logic_error("number must be quinary");
+        }
         num[i--] = c;
         size++;
     }
@@ -65,7 +60,7 @@ Five::Five(const Five& other){
     }
 }
 
-Five Five::operator=(const Five& other){ 
+Five& Five::operator=(const Five& other){ 
     if (&other != this){
         delete[] num;
         size = other.size;
