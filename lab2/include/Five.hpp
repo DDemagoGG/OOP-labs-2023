@@ -14,10 +14,10 @@ public:
     Five(const Five& other);
     ~Five();
     void print() const;
-    unsigned char* getnumber() const;
-    int getsize() const;
+    unsigned char* getNumber() const;
+    int getSize() const;
     Five operator + (const Five& other) const;
-    Five operator = (const Five& other);
+    Five& operator = (const Five& other);
     int operator == (const Five& other) const;
     int operator != (const Five& other) const;
     Five operator - (const Five& other) const;
@@ -26,5 +26,3 @@ public:
     int operator >= (const Five& other) const;
     int operator <= (const Five& other) const;
 };
-
-int isFive(const char& str);
