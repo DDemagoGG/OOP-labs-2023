@@ -1,8 +1,7 @@
 #include "Trapezoid.hpp"
 
 Trapezoid::Trapezoid(const Point& newLeftUpAngle, const Point& newRightUpAngle, const Point& newLeftDownAngle, const Point& newRightDownAngle) : 
-    Figure(FigureType::Trapezoid), leftUpAngle(newLeftUpAngle), leftDownAngle(newLeftDownAngle), rightDownAngle(newRightDownAngle), 
-    rightUpAngle(newRightUpAngle){
+    leftUpAngle(newLeftUpAngle), leftDownAngle(newLeftDownAngle), rightDownAngle(newRightDownAngle), rightUpAngle(newRightUpAngle){
 
 }
 
