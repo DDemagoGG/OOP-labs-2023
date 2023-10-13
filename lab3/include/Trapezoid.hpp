@@ -1,3 +1,5 @@
+#pragma once
+
 #include "Figure.hpp"
 
 class Trapezoid : public Figure{

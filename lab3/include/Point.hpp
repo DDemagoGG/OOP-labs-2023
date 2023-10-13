@@ -1,5 +1,8 @@
+#pragma once
+
 #include <iostream>
 #include <string>
+#include <cmath>
 
 class Point{
     friend std::ostream& operator << (std::ostream &os, const Point& point);
