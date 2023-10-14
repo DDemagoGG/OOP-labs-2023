@@ -31,3 +31,37 @@ Trapezoid::operator double(){
     double b = rightDownAngle.getX() - leftDownAngle.getX();
     return h * (a + b) / 2;
 }
+
+int Trapezoid::operator==(const Trapezoid& other) const{
+    if ((leftUpAngle == other.leftUpAngle) and
+        (rightUpAngle == other.rightUpAngle) and
+        (leftDownAngle == other.leftDownAngle) and 
+        (rightDownAngle == other.rightDownAngle)){
+            return 1;
+        }
+    return 0;
+}
+
+Trapezoid& Trapezoid::operator=(const Trapezoid& other){
+    if (!(this == &other)){
+        leftUpAngle = other.leftUpAngle;
+        rightUpAngle = other.rightUpAngle;
+        leftDownAngle = other.leftDownAngle;
+        rightDownAngle = other.rightDownAngle;
+    }
+    return *this;
+}
+
+Trapezoid& Trapezoid::operator=(Trapezoid&& other){
+    if (!(this == &other)){
+        leftUpAngle = other.leftUpAngle;
+        leftDownAngle = other.leftDownAngle;
+        rightDownAngle = other.rightDownAngle;
+        rightUpAngle = other.rightUpAngle;
+        other.leftDownAngle = Point(0.0, 0.0);
+        other.leftUpAngle = Point(0.0, 0.0);
+        other.rightDownAngle = Point(0.0, 0.0);
+        other.rightUpAngle = Point(0.0, 0.0);
+    }
+    return *this;
+}

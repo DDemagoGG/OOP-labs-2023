@@ -17,4 +17,5 @@ public:
     double getX();
     double getY();
     int operator ==(const Point& other) const;
+    Point& operator=(const Point& other);
 };

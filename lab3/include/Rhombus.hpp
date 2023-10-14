@@ -15,4 +15,7 @@ public:
     ~Rhombus();
     virtual Point getCenter();
     virtual operator double();
+    int operator==(const Rhombus& other) const;
+    Rhombus& operator=(const Rhombus& other);
+    Rhombus& operator=(Rhombus&& other);
 };

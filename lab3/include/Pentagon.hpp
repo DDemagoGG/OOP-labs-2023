@@ -16,4 +16,7 @@ public:
     ~Pentagon();
     virtual Point getCenter();
     virtual operator double();
+    int operator==(const Pentagon& other) const;
+    Pentagon& operator=(const Pentagon& other);
+    Pentagon& operator=(Pentagon&& other);
 };

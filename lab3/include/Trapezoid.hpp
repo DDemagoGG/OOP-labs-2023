@@ -15,4 +15,7 @@ public:
     ~Trapezoid();
     virtual Point getCenter();
     virtual operator double();
+    int operator==(const Trapezoid& other) const;
+    Trapezoid& operator=(const Trapezoid& other);
+    Trapezoid& operator=(Trapezoid&& other);
 };
