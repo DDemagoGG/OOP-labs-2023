@@ -4,8 +4,18 @@ ListFigure::ListFigure() : size{0}, data{nullptr}{
 
 }
 
+ListFigure::~ListFigure(){
+    if (data != nullptr){
+        for (int i = 0; i < size; i++){
+            delete data[i];   
+        }
+        delete[] data;
+        size = 0;
+    }
+}
+
 ListFigure::ListFigure(const std::initializer_list<Figure *> &l){
-    data = new Figure *[l.size()];
+    data = new Figure*[l.size()];
     size_t i = l.size() - 1;
     size = 0;
     for (Figure * f : l){

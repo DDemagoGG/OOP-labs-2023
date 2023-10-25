@@ -7,6 +7,7 @@ class ListFigure{
     int size;
 public:
     ListFigure();
+    ~ListFigure();
     ListFigure(const std::initializer_list<Figure *> &l);
     void push(Figure * fig);
     virtual operator double();
