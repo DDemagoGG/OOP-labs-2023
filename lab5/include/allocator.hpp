@@ -5,7 +5,7 @@
 template <class T>
 class Allocator{
 public:
-    static constexpr size_t max_count = 500000;
+    static constexpr size_t max_count = 332640;
     using value_type = T;
     using pointer = T*;
     using const_pointer = const T*;
@@ -17,36 +17,39 @@ public:
         typedef Allocator<U> other;
     };
 private:
-    char * used_blocks;
-    std::array<void *, max_count> free_blocks;
-    size_t free_count;
+    char * buffer;
+    std::array<void *, max_count> chunks;
+    std::array<size_t, 12> chunks_count;
+    const size_t chunk_size = 22720;
+    size_t chunk_start(size_t n){
+        return (n - 1) * chunk_size;
+    }
 public:
     Allocator(){
-        used_blocks = (char *)malloc(sizeof(value_type) * max_count);
+        buffer = (char *)malloc(sizeof(value_type) * max_count);
         for(size_t i = 0; i < max_count; i++){
-            free_blocks[i] = used_blocks + i * sizeof(value_type);
+            chunks[i] = buffer + i * sizeof(value_type);
         }
-        free_count = max_count;
+        for(size_t i = 0; i < 12; i++){
+            chunks_count[i] = chunk_size / (i + 1);
+        }
     }
     ~Allocator(){
-        delete used_blocks;
-        used_blocks = nullptr;
+        delete buffer;
+        buffer = nullptr;
     }
     pointer allocate(size_t n){
         pointer res = nullptr;
-        if (free_count >= n){
-            res = (pointer)free_blocks[free_count - n];
-            free_count -= n;
+        if ((n <= 12) and (chunks_count[n - 1] > 0)){
+            res = (pointer)chunks[chunk_start(n) + chunks_count[n - 1] * n - 1];
+            chunks_count[n - 1]--;
         }
         return res;
     }
     void deallocate(pointer p, size_t n){
-        size_t p_size = sizeof(*p) / sizeof(value_type);
-        if (n == p_size){
-            free_blocks[free_count] = p;
-            p = nullptr;
-            free_count += n;
-        }
+        chunks[chunk_start(n) + chunks_count[n - 1] * n] = p;
+        p = nullptr;
+        ++chunks_count[n - 1];
     }
     template <typename U, typename... Args>
     void construct(U *p, Args &&...args){

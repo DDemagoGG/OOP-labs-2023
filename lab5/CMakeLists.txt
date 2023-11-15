@@ -9,12 +9,12 @@ set(TEST_DIR ${CMAKE_CURRENT_SOURCE_DIR}/test)
 
 include_directories(${INCLUDE_DIR})
 
-# file(GLOB_RECURSE TEST_SOURCES LIST_DIRECTORIES false ${TEST_DIR}/*.cpp)
+file(GLOB_RECURSE TEST_SOURCES LIST_DIRECTORIES false ${TEST_DIR}/*.cpp)
 
 add_executable(${CMAKE_PROJECT_NAME}_exe main.cpp)
-# add_executable(${CMAKE_PROJECT_NAME}_test ${TEST_SOURCES})
+add_executable(${CMAKE_PROJECT_NAME}_test ${TEST_SOURCES})
 
-# target_include_directories(${CMAKE_PROJECT_NAME}_test PRIVATE ${gtest_SOURCE_DIR}/include ${gtest_SOURCE_DIR})
-# target_link_libraries(${CMAKE_PROJECT_NAME}_test PRIVATE gtest gtest_main)
+target_include_directories(${CMAKE_PROJECT_NAME}_test PRIVATE ${gtest_SOURCE_DIR}/include ${gtest_SOURCE_DIR})
+target_link_libraries(${CMAKE_PROJECT_NAME}_test PRIVATE gtest gtest_main)
 
 add_test(NAME BASIC COMMAND tests01)
